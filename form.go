@@ -1,29 +1,32 @@
 package form
 
 import (
-	"errors"
 	"regexp"
 )
 
-func Validate(keyword, content string) error {
+type jsonformat struct {
+	ErrMsg string
+}
+
+func Validate(keyword, content string) string {
 	switch keyword {
 	case "username":
 		reg, _ := regexp.Compile(`^(\w)+$`)
 		if b := reg.MatchString(content); !b {
-			return errors.New("invalidusername")
+			return tojson("invalidusername")
 		}
 	case "password":
 		reg, _ := regexp.Compile(`^(\w)+$`)
 		if b := reg.MatchString(content); !b {
-			return errors.New("invalidpassword")
+			return tojson("invalidpassword")
 		}
 	case "email":
 		reg, _ := regexp.Compile(`^(\w)+\@(\w)+\.(com|cn|net|org)$`)
 		if b := reg.MatchString(content); !b {
-			return errors.New("invalidemail")
+			return tojson("invalidemail")
 		}
 	default:
-		return errors.New("No keywords matched")
+		return tojson("no keywords matched")
 	}
-	return nil
+	return ""
 }
