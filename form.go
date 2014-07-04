@@ -5,7 +5,7 @@ import (
 )
 
 type jsonformat struct {
-	ErrMsg string
+	ErrMsg string `json: "ErrMsg"`
 }
 
 func Validate(keyword, content string) string {
